@@ -15,7 +15,7 @@ const URL = "mongodb+srv://admin:" + process.env.MONGO_PASSWORD + "@spotifyclust
 mongoose.connect(URL)
     .then(console.log("MongoDB connected"))
     .catch((error) => {
-        console.log(error);
+        console.log(error); 
     });
 
 // SetUp Passport JWT
@@ -44,6 +44,8 @@ app.get('/', (req, res) => {
     // res contains all data for the response
     return res.send("Hello World")
 });
+
+
 
 // Tell Express the Sever will Run on this PORT
 app.listen(PORT, () => {
