@@ -23,7 +23,7 @@ const User=new mongoose.Schema({
     },
     phoneNo:{
         type:Number,
-        required:true,
+        required:false,
     },
     likedSongs:{
         type:String,

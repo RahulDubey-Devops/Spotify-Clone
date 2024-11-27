@@ -11,7 +11,8 @@ const JwtStrategy = require('passport-jwt').Strategy,
 const PORT = 8080;
 app.use(express.json());
 
-const URL = "mongodb+srv://admin:" + process.env.MONGO_PASSWORD + "@spotifycluster01.eiq26.mongodb.net/?retryWrites=true&w=majority&appName=SpotifyCluster01";
+
+const URL = process.env.MONGO_URI;
 
 //Connect MongoDB to Node APP
 mongoose.connect(URL)
