@@ -22,7 +22,7 @@ router.post("/register", async (req, res) => {
     //Step 3: Create the new user:
     //Step 3.1 : We donot store passowrd in plain text
     // xyz: we convert the plain text into a hash
-    const hashPassword = bcrypt.hash(password, 10);
+    const hashPassword = await bcrypt.hash(password, 10);
     const newUserData = { email, password: hashPassword, firstName, lastName, username };
 
     const newUser = await User.create(newUserData);
