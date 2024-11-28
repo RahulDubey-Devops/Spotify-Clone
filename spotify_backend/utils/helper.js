@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 async function getToken(email, newUser) {
 
     const token = jwt.sign({
-        identifier: email?._id,
+        sub: newUser._id,
     },
         process.env.Key,
     );
