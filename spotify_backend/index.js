@@ -25,22 +25,23 @@ mongoose.connect(URL)
 
 // SetUp Passport JWT
 
-let opts = {}
+let opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.Key;
 
-passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
-    User.findOne({ id: jwt_payload.sub }, function (err, user) {
-        if (err) {
-            return done(err, false);
-        }
+passport.use(new JwtStrategy(opts, async function (jwt_payload, done) {
+    try {
+        // Use async/await instead of callback for findOne
+        const user = await User.findOne({ _id: jwt_payload.sub });
+
         if (user) {
-            return done(null, user);
+            return done(null, user); // User found
         } else {
-            return done(null, false);
-            // or you could create a new account
+            return done(null, false); // User not found
         }
-    });
+    } catch (err) {
+        return done(err, false); // Error during query
+    }
 }));
 
 
@@ -52,6 +53,7 @@ app.get('/', (req, res) => {
 
 app.use("/auth",authRouter);
 app.use('/song',songRouter);
+app.use("/song",songRouter)
 
 // Tell Express the Sever will Run on this PORT
 app.listen(PORT, () => {

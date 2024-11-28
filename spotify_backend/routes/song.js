@@ -4,7 +4,7 @@ const passport = require("passport");
 const Songs = require("../models/Songs");
 const router = express.Router();
 
-router.post('/create', passport.authenticate('user'), async (req, res) => {
+router.post('/create', passport.authenticate('jwt', { session: false }), async (req, res) => {
     //req.user gets user because of passport.authenticate 
     const { name, thumbnail, track } = req.body;
     if (!name || !thumbnail || !track) {
@@ -15,8 +15,12 @@ router.post('/create', passport.authenticate('user'), async (req, res) => {
     const createdSong = await Songs.create(songDetails);
 
     return res.status(200).json(createdSong);
-
 })
 
-
+router.get("/get/mysongs", passport.authenticate("jwt", { session: false }), async (req, res) => {
+    const current = req.user;
+    //we need to get all songs where artist id== currentUser._id;
+    const songs = await Songs.find({ artist: req.user._id });
+    return res.status(200).json({data:songs});
+})
 module.exports = router;
