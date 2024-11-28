@@ -21,8 +21,6 @@ const Song=new mongoose.Schema({
     ref:"user",
     required:true,
    },
-
-
 });
 
 //Step 3:Create the model

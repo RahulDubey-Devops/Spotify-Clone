@@ -4,6 +4,7 @@ const User = require("../models/User")
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const { getToken } = require("../utils/helper")
+const User = require("../models/User")
 //This POST router will help to register the user
 router.post("/register", async (req, res) => {
     //This code is run when /register api is called as POST request
@@ -37,4 +38,35 @@ router.post("/register", async (req, res) => {
 
 });
 
+router.post("/login", async (req, res) => {
+    //step 1: Get email and pass from user
+    const { email, password } = req.body;
+
+    //step 2: check if user(with email) exit or not
+    const user = await User.findOne({ email: email });
+    if (!user) return res.status(403).json("Invalid Credentials");
+
+    //Step 3 if user exits check if password s correct if not the credentioal are invalid
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+        return res.status(403).json("Invalid Credentials");
+    }
+
+    //Step 4: credential are correct thn return token to user
+
+    const token=await getToken(user.email,user);
+
+    const userToReturn={...user.toJSON(),token};
+
+    delete userToReturn.password;
+
+    return res.status(200).json(userToReturn);
+
+})
+
+
+
 module.exports = router;
+

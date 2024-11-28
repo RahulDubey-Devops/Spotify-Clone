@@ -6,6 +6,7 @@ require("dotenv").config();
 const passport = require("passport");
 const User = require("./models/User");
 const authRouter=require("./routes/auth")
+const songRouter=require("./routes/song")
 const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
 const PORT = 8080;
@@ -50,6 +51,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/auth",authRouter);
+app.use('/song',songRouter);
 
 // Tell Express the Sever will Run on this PORT
 app.listen(PORT, () => {
