@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 // how to create a mondle
 // step2:
-// create the schema for mongoose
+// create the schema for mongoose 
 
 const PlayList = new mongoose.Schema({
     name: {
