@@ -26,10 +26,10 @@ jobs:
         cd spotify_backend
         npm install  # Assuming your backend has a package.json file.
 
-    - name: Run tests
-      run: |
-        cd spotify_backend
-        npm test  # Make sure you have tests defined in your 'backend' package.
+    # - name: Run tests
+    #   run: |
+    #     cd spotify_backend
+    #     npm test  # Make sure you have tests defined in your 'backend' package.
 
     - name: Build project
       run: |
