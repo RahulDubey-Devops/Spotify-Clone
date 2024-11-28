@@ -53,7 +53,6 @@ app.get('/', (req, res) => {
 
 app.use("/auth",authRouter);
 app.use('/song',songRouter);
-app.use("/song",songRouter)
 
 // Tell Express the Sever will Run on this PORT
 app.listen(PORT, () => {

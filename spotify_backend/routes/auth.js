@@ -1,6 +1,5 @@
 
 const express = require("express");
-const User = require("../models/User")
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const { getToken } = require("../utils/helper")
@@ -56,9 +55,9 @@ router.post("/login", async (req, res) => {
 
     //Step 4: credential are correct thn return token to user
 
-    const token=await getToken(user.email,user);
+    const token = await getToken(user.email, user);
 
-    const userToReturn={...user.toJSON(),token};
+    const userToReturn = { ...user.toJSON(), token };
 
     delete userToReturn.password;
 
