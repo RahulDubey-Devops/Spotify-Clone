@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "webpack --config webpack.config.js",  
+    "build": "webpack --config webpack.config.js",
     "test": "jest",
     "dev": "nodemon index.js"
   },
@@ -21,9 +21,10 @@
     "passport-jwt": "^4.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7",
-     "webpack": "^5.64.4",
     "eslint": "^7.32.0",
-    "jest": "^27.0.6"
+    "jest": "^27.0.6",
+    "nodemon": "^3.1.7",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^5.1.4"
   }
 }
