@@ -3,7 +3,7 @@ const passport = require("passport");
 const router = express.Router();
 const PlayList = require("../models/PlayList");
 const User = require("../models/User")
-const Song=require("../models/Songs")
+const Song = require("../models/Songs")
 //1: Create a PlayList
 router.post("/create", passport.authenticate("jwt", { session: false }), async (req, res) => {
     const currentUser = req.user;
@@ -49,19 +49,19 @@ router.post("/add/song", passport.authenticate("jwt", { session: false }), async
     const currentUser = req.user;
     const { playlistId, songId } = req.body;
     const playlist = await PlayList.findOne({ _id: playlistId });
-   // Get the playList if Valid:
+    // Get the playList if Valid:
     if (!playlist) {
         return res.status(304).json({ err: "PlayList does not exit!" });
     }
     // 1: Check if current User owns the playlist or is a collaborator:
-    if (playlist.owner !== currentUser._id && playlist.collaborator.includes(currentUser._id)) {
-        return res.status(40).json({ err: "Not allowed " });
+    if (!playlist.owner.equals(currentUser._id) && !playlist.collaborator.includes(currentUser._id)) {
+        return res.status(400).json({ err: "Not allowed " });
     }
 
     // Step 2: Check if the song is valid song
-    const song=await Song.findOne({_id:songId});
-    if(!song){
-        return res.status(304).json({error:"Song does not exits"});
+    const song = await Song.findOne({ _id: songId });
+    if (!song) {
+        return res.status(304).json({ error: "Song does not exits" });
     }
     // Step 3: Now can simply add the song in PlayList
     playlist.songs.push(songId);
