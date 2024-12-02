@@ -2,6 +2,7 @@
 import { Icon } from '@iconify/react';
 import TextInput from '../Component/shared/TextInput';
 import Password from '../Component/Password';
+import { Link } from 'react-router-dom';
 function Login() {
     return (
         <div className="w-full h-full flex flex-col items-center">
@@ -22,7 +23,7 @@ function Login() {
 
                 <div className='font-semibold my-6 text-lg '>Don't have a account?</div>
             <div className='border border-gray-500 text-gray-500 font-bold w-full flex items-center justify-center rounded-full py-4'>
-                SIGN UP FOR SPOTIFY
+                <Link to="/signup">SIGN UP FOR SPOTIFY</Link>
             </div>
             </div>
         </div>
