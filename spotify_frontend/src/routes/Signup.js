@@ -2,18 +2,22 @@
 
 import { Icon } from '@iconify/react';
 import TextInput from '../Component/shared/TextInput';
+import { useCookies } from "react-cookie";
 import Password from '../Component/Password';
+import { useNavigate } from "react-router-dom"
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import {makeUnauthenticatedPOSTRequest} from "../utils/serverHelper"
+import { makeUnauthenticatedPOSTRequest } from "../utils/serverHelper"
 
- function Signup() {
+function Signup() {
     const [email, setEmail] = useState("");
     const [confirmEmail, setConfirmEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUserName] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [cookie, setCookie] = useCookies("token");
+    const navigate = useNavigate();
 
     const signUp = async () => {
         if (email !== confirmEmail) {
@@ -22,11 +26,18 @@ import {makeUnauthenticatedPOSTRequest} from "../utils/serverHelper"
         }
         const data = { email, password, username, firstName, lastName };
         // console.log(data)
-        const response=await makeUnauthenticatedPOSTRequest("/auth/register",data);
-        if(response&& !response.err){
+        const response = await makeUnauthenticatedPOSTRequest("/auth/register", data);
+        if (response && !response.err) {
             console.log(response);
+            const token = response.token;
+            const date = new Date();
+            date.setDate(date.getDate() + 30);
+            setCookie("token", token, {
+                path: '/', expires: date
+            });
             alert("Sucess");
-        }else{
+            navigate("/home")
+        } else {
             alert("Failure")
         }
     };
@@ -74,7 +85,7 @@ import {makeUnauthenticatedPOSTRequest} from "../utils/serverHelper"
                 </div>
                 <div className='w-full flex flex-wrap sm:w-1/2 items-center justify-center my-8'>
                     <button className='bg-green-400 font-semibold p-3 px-10 rounded-full ' onClick={
-                        e=> {
+                        e => {
                             e.preventDefault();
                             signUp();
                         }

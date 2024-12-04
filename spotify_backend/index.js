@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require('mongoose')
 const app = express();
 require("dotenv").config();
+const cors=require("cors");
 const passport = require("passport");
 const User = require("./models/User");
 const authRouter=require("./routes/auth")
@@ -11,6 +12,7 @@ const playlistRouter=require("./routes/playlist")
 const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
 const PORT = 8080;
+app.use(cors());
 app.use(express.json());
 
 
