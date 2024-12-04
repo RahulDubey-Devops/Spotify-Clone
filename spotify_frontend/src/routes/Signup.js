@@ -5,7 +5,9 @@ import TextInput from '../Component/shared/TextInput';
 import Password from '../Component/Password';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-function Signup() {
+import {makeUnauthenticatedPOSTRequest} from "../utils/serverHelper"
+
+ function Signup() {
     const [email, setEmail] = useState("");
     const [confirmEmail, setConfirmEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -13,15 +15,22 @@ function Signup() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
 
-    const signUp = () => {
+    const signUp = async () => {
         if (email !== confirmEmail) {
             alert("Email or Confirm Email does not matched");
             return;
         }
         const data = { email, password, username, firstName, lastName };
-        console.log(data)
+        // console.log(data)
+        const response=await makeUnauthenticatedPOSTRequest("/auth/register",data);
+        if(response&& !response.err){
+            console.log(response);
+            alert("Sucess");
+        }else{
+            alert("Failure")
+        }
     };
-    
+
     return (
         <div className="w-full h-full flex flex-col items-center">
             <div className="logo p-5 border-b border-solid border-gray-300 w-full flex justify-center">
