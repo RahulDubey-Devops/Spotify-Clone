@@ -5,7 +5,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route, } from 'react-router-dom';
 import HomeComponent from './routes/Home';
 import { useCookies } from 'react-cookie';
-
+import { Navigate } from 'react-router-dom';
 function App() {
   const [cookie, setCookie] = useCookies("token");
   return (
