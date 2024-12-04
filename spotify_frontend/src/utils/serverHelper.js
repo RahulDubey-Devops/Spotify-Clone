@@ -1,4 +1,4 @@
-import {backendUrl} from "./config";
+import { backendUrl } from "./config";
 
 export const makeUnauthenticatedPOSTRequest = async (route, body) => {
     // route :/signup
@@ -9,6 +9,6 @@ export const makeUnauthenticatedPOSTRequest = async (route, body) => {
         },
         body: JSON.stringify(body),
     });
-    const formattedResponse=await response.json();
+    const formattedResponse = await response.json();
     return formattedResponse;
 };
