@@ -1,7 +1,7 @@
 
 import { Icon } from '@iconify/react';
 import TextInput from '../Component/shared/TextInput';
-import Password from '../Component/Password';
+import Password from '../Component/shared/Password';
 import { Link,useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { makeUnauthenticatedPOSTRequest } from '../utils/serverHelper';

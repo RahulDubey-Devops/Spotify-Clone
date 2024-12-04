@@ -3,7 +3,7 @@
 import { Icon } from '@iconify/react';
 import TextInput from '../Component/shared/TextInput';
 import { useCookies } from "react-cookie";
-import Password from '../Component/Password';
+import Password from '../Component/shared/Password';
 import { useNavigate } from "react-router-dom"
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
