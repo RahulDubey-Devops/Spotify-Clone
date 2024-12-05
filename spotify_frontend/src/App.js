@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route, } from 'react-router-dom';
 import HomeComponent from './routes/Home';
 import { useCookies } from 'react-cookie';
 import { Navigate } from 'react-router-dom';
+import MyMusic from './routes/MyMusic';
 function App() {
   const [cookie, setCookie] = useCookies("token");
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path='/' element={<div>Hello</div>} />
             <Route path='/home' element={<LoggedInHome />} />
             <Route path='/uploadSong' element={<UploadSong/> } />
+            <Route path='/MyMusic' element={<MyMusic/> } />
             <Route path='*' element={<Navigate to="/home" />} />
           </Routes>
         ) : (

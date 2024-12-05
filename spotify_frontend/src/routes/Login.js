@@ -2,15 +2,15 @@
 import { Icon } from '@iconify/react';
 import TextInput from '../Component/shared/TextInput';
 import Password from '../Component/shared/Password';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { makeUnauthenticatedPOSTRequest } from '../utils/serverHelper';
 import { useCookies } from 'react-cookie';
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate=useNavigate();
-    const [cookie,setCookie]=useCookies("");
+    const navigate = useNavigate();
+    const [cookie, setCookie] = useCookies("");
     const login = async () => {
         const data = { email, password };
         // console.log(data)
@@ -44,9 +44,9 @@ function Login() {
                     value={email}
                     setValue={setEmail}
                 />
-                <Password label="Password" placeholder="Password"  value={password}
+                <Password label="Password" placeholder="Password" value={password}
                     setValue={setPassword} />
-                <div className='w-full flex items-center justify-end my-8
+                <div className='w-full flex flex-wrap items-center justify-center my-8
                 '
                 >
                     <button className='bg-green-400 font-semibold p-3 px-10 rounded-full '

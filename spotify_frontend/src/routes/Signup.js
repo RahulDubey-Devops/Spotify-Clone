@@ -28,7 +28,7 @@ function Signup() {
         // console.log(data)
         const response = await makeUnauthenticatedPOSTRequest("/auth/register", data);
         if (response && !response.err) {
-            console.log(response);
+            // console.log(response);
             const token = response.token;
             const date = new Date();
             date.setDate(date.getDate() + 30);

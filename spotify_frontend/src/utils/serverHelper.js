@@ -29,13 +29,10 @@ export const
         return formattedResponse;
     };
 
-    const getToken = (cookieName) => {
+    const getToken = () => {
         const accessToken = document.cookie.replace(
-            new RegExp(
-                "(?:(?:^|.*;\\s*)" + cookieName.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"
-            ),
+            /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
             "$1"
         );
-        return accessToken || null; // Return null if the token is not found
+        return accessToken;
     };
-    
