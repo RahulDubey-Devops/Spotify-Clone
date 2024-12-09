@@ -5,19 +5,23 @@ import UploadSong from './routes/UploadSong';
 
 import './App.css';
 import LoggedInHome from "./routes/LoggedInHome"
-import { BrowserRouter, Routes, Route, } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useSearchParams, } from 'react-router-dom';
 import HomeComponent from './routes/Home';
 import { useCookies } from 'react-cookie';
 import { Navigate } from 'react-router-dom';
 import MyMusic from './routes/MyMusic';
+import songContext from "./contexts/songContext"
 function App() {
+
   const [cookie, setCookie] = useCookies("token");
+  const [currentSong,setCurrentSong]=useState(null);
   return (
     <div className='w-screen h-screen font-poppins'>
-      <BrowserRouter>
+      <BrowserRouter> 
 
         {cookie.token ? (
           <Routes>
+            <songContext.Provider value={{currentSong,setCurrentSong}}>
             { /*Adding routes component   */}
             {/* //loged in routes */}
             <Route path='/' element={<div>Hello</div>} />
@@ -25,6 +29,7 @@ function App() {
             <Route path='/uploadSong' element={<UploadSong/> } />
             <Route path='/MyMusic' element={<MyMusic/> } />
             <Route path='*' element={<Navigate to="/home" />} />
+          </songContext.Provider>
           </Routes>
         ) : (
           // loged out routes

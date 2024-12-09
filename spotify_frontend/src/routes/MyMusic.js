@@ -1,6 +1,6 @@
 
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { How, Howler } from "howler";
+import { Howl, Howler } from "howler";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../Component/shared/IconText";
 import TextWithHover from "../Component/shared/TextWithHover";
