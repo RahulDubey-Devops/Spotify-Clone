@@ -1,29 +1,40 @@
 
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { How, Howler } from "howler";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../Component/shared/IconText";
 import TextWithHover from "../Component/shared/TextWithHover";
-import TextInput from "../Component/shared/TextInput";
-import CloudinaryUpload from "../Component/shared/CloudinaryUpload";
-import { useState } from "react";
-import {makeAuthenticatedPOSTRequest} from "../utils/serverHelper"
-import {useNavigate} from "react-router-dom";
+import SingleSongCard from "../Component/shared/SingleSongCard";
+import { thumbnail } from "@cloudinary/url-gen/actions/resize";
+import { makeAuthenticatedGETRequest } from "../utils/serverHelper";
+import { useEffect, useState } from "react";
+
 function MyMusic() {
-    const [upload, setUpload] = useState("");
-    const [thumbnail, setThumbnail] = useState("");
-    const [playlistUrl, setPlaylistUrl] = useState("");
-    const navigator=useNavigate();
-    const [uploadedSongFileName, setUploadedSongFileName] = useState();
-    const submitSong = async () => {
-        const data = { names, thumbnail, track : playlistUrl};
-        const response= await makeAuthenticatedPOSTRequest("/song/create",data);
-        if(response.err){
-            alert("Could not create song")
-            return 
+    const [songData, setSongData] = useState([]);
+    const [soundPlayed, setSoundPlayed] = useState(null);
+    const playSound = (songSrc) => {
+        if (soundPlayed) {
+            soundPlayed.stop();
         }
-        alert("Success");
-        navigator("/home")
+
+        let sound = new Howl({
+            src: [songSrc],
+            html5: true,
+        })
+        setSoundPlayed(sound);
+        sound.play();
+
     }
+
+    useEffect(() => {
+        //fetch data
+        const getData = async () => {
+            const response = await makeAuthenticatedGETRequest("/song/get/mysongs");
+            setSongData(response.data);
+        }
+        getData();
+
+    }, []);
     return (
         <div className="w-full h-full flex">
             {/* This will be left part */}
@@ -34,10 +45,10 @@ function MyMusic() {
                         <img src={spotify_logo} alt="spotify_logo" width={125} />
                     </div>
                     <div className="py-5">
-                        <IconText iconName={"oi:home"} displayText="Home" active />
+                        <IconText iconName={"oi:home"} displayText="Home" />
                         <IconText iconName={"material-symbols:search"} displayText="Search" />
                         <IconText iconName={"lineicons:books-2"} displayText="Library" />
-                        <IconText iconName={"material-symbols:library-music-sharp"} displayText="My Music" />
+                        <IconText iconName={"material-symbols:library-music-sharp"} displayText="My Music" active />
                     </div>
                     <div className="pt-5">
                         <IconText iconName={"icon-park-solid:add"} displayText="Crete Playlist" />
@@ -76,8 +87,21 @@ function MyMusic() {
                             </div>
                         </div>
                     </div>
+
                 </div>
-               
+                <div className="content p-8  overflow-auto">
+                    <div className="text-xl text-white font-semibold pb-4 pl-2">My Songs</div>
+
+                    <div className="space-y-3 overflow-auto">
+                        {songData.map((item) => {
+                            return <SingleSongCard
+                                info={item} playSound={playSound}
+
+                            />
+                        })}
+
+                    </div>
+                </div>
             </div >
         </div>
     )
