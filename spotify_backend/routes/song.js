@@ -21,7 +21,7 @@ router.post('/create', passport.authenticate('jwt', { session: false }), async (
 router.get("/get/mysongs", passport.authenticate("jwt", { session: false }), async (req, res) => {
     const current = req.user;
     //we need to get all songs where artist id== currentUser._id;
-    const songs = await Songs.find({ artist: req.user._id });
+    const songs = await Songs.find({ artist: req.user._id }).populate("artist");
     return res.status(200).json({ data: songs });
 })
 
