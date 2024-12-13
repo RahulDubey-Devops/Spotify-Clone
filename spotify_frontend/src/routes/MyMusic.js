@@ -5,10 +5,9 @@ import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../Component/shared/IconText";
 import TextWithHover from "../Component/shared/TextWithHover";
 import SingleSongCard from "../Component/shared/SingleSongCard";
-import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { makeAuthenticatedGETRequest } from "../utils/serverHelper";
 import { useEffect, useState } from "react";
-import songContext from "../contexts/songContext";
+
 function MyMusic() {
     const [songData, setSongData] = useState([]);
     const [soundPlayed, setSoundPlayed] = useState(null);
