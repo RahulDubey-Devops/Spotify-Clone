@@ -8,10 +8,11 @@ import SingleSongCard from "../Component/shared/SingleSongCard";
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { makeAuthenticatedGETRequest } from "../utils/serverHelper";
 import { useEffect, useState } from "react";
-
+import songContext from "../contexts/songContext";
 function MyMusic() {
     const [songData, setSongData] = useState([]);
     const [soundPlayed, setSoundPlayed] = useState(null);
+    // const { currentSong, setCurrentSong } = useContext(songContext);
     const playSound = (songSrc) => {
         if (soundPlayed) {
             soundPlayed.stop();
@@ -96,7 +97,6 @@ function MyMusic() {
                         {songData.map((item) => {
                             return <SingleSongCard
                                 info={item} playSound={playSound}
-
                             />
                         })}
 

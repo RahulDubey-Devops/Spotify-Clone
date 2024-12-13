@@ -8,17 +8,17 @@ module.exports = {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
-      height:{
-        "1/10":"10%",
-        "9/10":"90%",
+      height: {
+        "1/10": "10%",
+        "9/10": "90%",
       },
-      backgroundColor:{
-        "app-black":"#121212"
+      backgroundColor: {
+        "app-black": "#121212"
       },
     },
   },
-  variants:{
-extend:{},
+  variants: {
+    extend: {},
   },
   plugins: [],
 }
