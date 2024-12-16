@@ -1,10 +1,12 @@
-import { thumbnail } from "@cloudinary/url-gen/actions/resize";
-
+import { useContext } from "react";
+import songContext from "../../contexts/songContext"
 const SingleSongCard = ({info,playSound}) => {
+    const {currentSong,setCurrentSong}=useContext(songContext);
+
     return (
 
         <div className="flex hover:bg-gray-400 hover:opacity-20 p-2 rounded-sm" onClick={()=> {
-            playSound(info.track);
+           setCurrentSong(info);
         }}>
             <div className="w-12 h-12 bg-cover bg-center "
                 style={{
