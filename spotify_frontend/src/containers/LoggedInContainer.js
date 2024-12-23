@@ -7,11 +7,27 @@ import { useState } from "react";
 import songContext from "../contexts/songContext";
 import { useContext } from "react";
 
+
 function LoggedInContainer({ children }) {
-    const [isPause, setPause] = useState(true);
+    const [isPause, setIsPause] = useState(true);
     const [soundPlayed, setIsPlayed] = useState(null);
     const { currentSong, setCurrentSong } = useContext(songContext);
-    const playSound = (songSrc) => {
+
+    useEffect(() => {
+        if (!currentSong) {
+            return;
+        }
+        changeSong(currentSong.track());
+    }, [currentSong,changeSong])
+
+    const playSound = () => {
+        if (!soundPlayed) {
+            return;
+        }
+        soundPlayed.play();
+    };
+
+    const changeSong = (songSrc) => {
         if (soundPlayed) {
             soundPlayed.stop();
         }
@@ -22,6 +38,7 @@ function LoggedInContainer({ children }) {
         })
         setSoundPlayed(sound);
         sound.play();
+        setIsPause(false);
     }
     const pauseSound = () => {
         soundPlayed.pause();
@@ -48,8 +65,10 @@ function LoggedInContainer({ children }) {
                             <img src={spotify_logo} alt="spotify_logo" width={125} />
                         </div>
                         <div className="py-5">
-                            <IconText iconName={"oi:home"} displayText="Home" active />
-                            <IconText iconName={"material-symbols:search"} displayText="Search" />
+                            <IconText iconName={"oi:home"} displayText="Home" active
+                            targetLink={"/home"} />
+                            <IconText iconName={"material-symbols:search"} displayText="Search" 
+                             targetLink={"/myMusic"}/>
                             <IconText iconName={"lineicons:books-2"} displayText="Library" />
                             <IconText iconName={"material-symbols:library-music-sharp"} displayText="My Music" />
                         </div>
@@ -103,7 +122,7 @@ function LoggedInContainer({ children }) {
                         <img src={currentSong.thumbnail} alt="current Song" className="h-14 w-14 rounded-full "></img>
                         <div className="pl-4">
                             <div className="text-sm text-white ">{currentSong.name}</div>
-                            <div className="text-gray-500 text-xs cursor-pointer hover:underline">{currentSong.artist.firstName +" "+ currentSong.artist.lastName}
+                            <div className="text-gray-500 text-xs cursor-pointer hover:underline">{currentSong.artist.firstName + " " + currentSong.artist.lastName}
                             </div>
                         </div>
                     </div>
