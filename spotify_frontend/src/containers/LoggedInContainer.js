@@ -8,9 +8,9 @@ import songContext from "../contexts/songContext";
 import { useContext } from "react";
 
 
-function LoggedInContainer({ children }) {
-   
-    const { currentSong, setCurrentSong,soundPlayed,setSoundPlayed,isPause,setIsPause} = useContext(songContext);
+function LoggedInContainer({ children, currActiveScreen }) {
+
+    const { currentSong, setCurrentSong, soundPlayed, setSoundPlayed, isPause, setIsPause } = useContext(songContext);
     const firstUpdate = useRef(true);
     useLayoutEffect(() => {
         // on first reder is will ony work and set it as false so useLR doesnot callgain and again on each render
@@ -69,16 +69,20 @@ function LoggedInContainer({ children }) {
                             <img src={spotify_logo} alt="spotify_logo" width={125} />
                         </div>
                         <div className="py-5">
-                            <IconText iconName={"oi:home"} displayText="Home" active
+                            <IconText iconName={"oi:home"} displayText="Home"
+                                active={currActiveScreen == "home"}
                                 targetLink={"/home"} />
                             <IconText iconName={"material-symbols:search"} displayText="Search"
+                                active={currActiveScreen === "search"}
                                 targetLink={"/myMusic"} />
-                            <IconText iconName={"lineicons:books-2"} displayText="Library" />
-                            <IconText iconName={"material-symbols:library-music-sharp"} displayText="My Music" />
+                            <IconText iconName={"lineicons:books-2"} displayText="Library"active={currActiveScreen == "library"}/>
+                            <IconText iconName={"material-symbols:library-music-sharp"} 
+                            active={currActiveScreen === "myMusic"}
+                            displayText="My Music" />
                         </div>
                         <div className="pt-5">
-                            <IconText iconName={"icon-park-solid:add"} displayText="Crete Playlist" />
-                            <IconText iconName={"mdi:cards-heart"} displayText="Liked Songs" />
+                            <IconText iconName={"icon-park-solid:add"} displayText="Crete Playlist" active={currActiveScreen == "playlist"}/>
+                            <IconText iconName={"mdi:cards-heart"} displayText="Liked Songs" active={currActiveScreen == "likedSong"}/>
                         </div>
                     </div>
                     <div className="px-5">

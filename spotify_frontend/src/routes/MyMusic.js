@@ -117,7 +117,7 @@ function MyMusic() {
         }, []);
 
     return (
-        <LoggedInContainer>
+        <LoggedInContainer currActiveScreen="myMusic">
             <div className="text-xl text-white font-semibold pb-4 pl-2 pt-8">My Songs</div>
 
             <div className="space-y-3 overflow-auto">
