@@ -2,6 +2,7 @@
 import LoginComponent from './routes/Login';
 import SignupComponent from './routes/Signup';
 import UploadSong from './routes/UploadSong';
+import SearchPage from './routes/SearchPage';
 import { useState } from 'react';
 import './App.css';
 import LoggedInHome from "./routes/LoggedInHome"
@@ -30,6 +31,7 @@ function App() {
               <Route path='/home' element={<LoggedInHome />} />
               <Route path='/uploadSong' element={<UploadSong />} />
               <Route path='/MyMusic' element={<MyMusic />} />
+              <Route path='/search' element={<SearchPage />} />
               <Route path='*' element={<Navigate to="/home" />} />
             </Routes>
           </songContext.Provider>

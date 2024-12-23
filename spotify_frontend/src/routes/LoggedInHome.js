@@ -62,5 +62,4 @@ const Card = ({ title, description, url }) => {
     )
 }
 
-
 export default LoggedInHome;

@@ -74,7 +74,7 @@ function LoggedInContainer({ children, currActiveScreen }) {
                                 targetLink={"/home"} />
                             <IconText iconName={"material-symbols:search"} displayText="Search"
                                 active={currActiveScreen === "search"}
-                                targetLink={"/myMusic"} />
+                                targetLink={"/search"} />
                             <IconText iconName={"lineicons:books-2"} displayText="Library"active={currActiveScreen == "library"}/>
                             <IconText iconName={"material-symbols:library-music-sharp"} 
                             active={currActiveScreen === "myMusic"}
