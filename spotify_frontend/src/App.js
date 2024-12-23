@@ -15,12 +15,14 @@ function App() {
 
   const [cookie, setCookie] = useCookies(["token"]);
   const [currentSong, setCurrentSong] = useState(null);
+  const [isPause, setIsPause] = useState(true);
+  const [soundPlayed, setIsPlayed] = useState(null);
   return (
     <div className='w-screen h-screen font-poppins'>
       <BrowserRouter>
 
         {cookie.token ? (
-          <songContext.Provider value={{ currentSong, setCurrentSong }}>
+          <songContext.Provider value={{ currentSong, setCurrentSong, soundPlayed, setIsPlayed, setIsPause, isPause }}>
             <Routes>
               { /*Adding routes component   */}
               {/* //loged in routes */}

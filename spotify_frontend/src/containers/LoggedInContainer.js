@@ -3,22 +3,26 @@ import { Howl } from "howler";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../Component/shared/IconText";
 import TextWithHover from "../Component/shared/TextWithHover";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import songContext from "../contexts/songContext";
 import { useContext } from "react";
 
 
 function LoggedInContainer({ children }) {
-    const [isPause, setIsPause] = useState(true);
-    const [soundPlayed, setIsPlayed] = useState(null);
-    const { currentSong, setCurrentSong } = useContext(songContext);
-
-    useEffect(() => {
+   
+    const { currentSong, setCurrentSong,soundPlayed,setSoundPlayed,isPause,setIsPause} = useContext(songContext);
+    const firstUpdate = useRef(true);
+    useLayoutEffect(() => {
+        // on first reder is will ony work and set it as false so useLR doesnot callgain and again on each render
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
         if (!currentSong) {
             return;
         }
         changeSong(currentSong.track());
-    }, [currentSong,changeSong])
+    }, [currentSong && currentSong.track])
 
     const playSound = () => {
         if (!soundPlayed) {
@@ -66,9 +70,9 @@ function LoggedInContainer({ children }) {
                         </div>
                         <div className="py-5">
                             <IconText iconName={"oi:home"} displayText="Home" active
-                            targetLink={"/home"} />
-                            <IconText iconName={"material-symbols:search"} displayText="Search" 
-                             targetLink={"/myMusic"}/>
+                                targetLink={"/home"} />
+                            <IconText iconName={"material-symbols:search"} displayText="Search"
+                                targetLink={"/myMusic"} />
                             <IconText iconName={"lineicons:books-2"} displayText="Library" />
                             <IconText iconName={"material-symbols:library-music-sharp"} displayText="My Music" />
                         </div>
