@@ -14,17 +14,17 @@ const PlayList = new mongoose.Schema({
     },
     owner: {
         type: mongoose.Types.ObjectId,
-        ref: "user",
+        ref: "User",
     },
     // 1:Song in PlayList
     songs: [{
         type: mongoose.Types.ObjectId,
-        ref: "song",
+        ref: "Song",
     }],
     //2 : Collaborator
     collaborator: [{
         type: mongoose.Types.ObjectId,
-        ref: "user",
+        ref: "User",
     }],
 });
 

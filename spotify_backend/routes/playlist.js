@@ -33,6 +33,15 @@ router.get("/get/playlist/:playlistId", passport.authenticate("jwt", { session: 
     return res.status(201).json(playlist);
 })
 
+// get all playlist made by me
+router.get("/get/me", passport.authenticate("jwt", { session: false }), async (req, res) => {
+    const artistId = req.user._id;
+  
+    const playists = await PlayList.find({ owner: artistId }).populate("owner");
+    return res.status(200).json({ data: playists });
+})
+
+
 // Get all the PlayList made by an artist
 router.get("/get/artist/:artistId", passport.authenticate("jwt", { session: false }), async (req, res) => {
     const artistId = req.params.artistId;
@@ -43,6 +52,8 @@ router.get("/get/artist/:artistId", passport.authenticate("jwt", { session: fals
     const playists = await PlayList.find({ owner: artistId });
     return res.status(200).json({ data: playists });
 })
+
+
 
 // Add a song to a PlayList:
 router.post("/add/song", passport.authenticate("jwt", { session: false }), async (req, res) => {

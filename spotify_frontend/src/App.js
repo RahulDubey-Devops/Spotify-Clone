@@ -12,6 +12,7 @@ import { useCookies } from "react-cookie";
 import { Navigate } from 'react-router-dom';
 import MyMusic from './routes/MyMusic';
 import songContext from "./contexts/songContext"
+import Library from './routes/Library';
 function App() {
 
   const [cookie, setCookie] = useCookies(["token"]);
@@ -32,6 +33,7 @@ function App() {
               <Route path='/uploadSong' element={<UploadSong />} />
               <Route path='/MyMusic' element={<MyMusic />} />
               <Route path='/search' element={<SearchPage />} />
+              <Route path='/library' element={<Library />} />
               <Route path='*' element={<Navigate to="/home" />} />
             </Routes>
           </songContext.Provider>

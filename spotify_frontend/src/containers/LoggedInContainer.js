@@ -6,10 +6,11 @@ import TextWithHover from "../Component/shared/TextWithHover";
 import { useLayoutEffect, useRef, useState } from "react";
 import songContext from "../contexts/songContext";
 import { useContext } from "react";
+import CreatePlaylistModal from "../modals/CreatePlaylistModal";
 
 
 function LoggedInContainer({ children, currActiveScreen }) {
-
+    const [createPlayListModel, setCreatePlayListModel] = useState(false);
     const { currentSong, setCurrentSong, soundPlayed, setSoundPlayed, isPause, setIsPause } = useContext(songContext);
     const firstUpdate = useRef(true);
     useLayoutEffect(() => {
@@ -59,6 +60,8 @@ function LoggedInContainer({ children, currActiveScreen }) {
     }
     return (
         <div className="w-full h-full bg-app-black">
+            {createPlayListModel &&
+                <CreatePlaylistModal closeModal={setCreatePlayListModel(false)}/>}
             {/* This will be left part */}
             {/* ${currentSong ?"h-9/10":"h-9/10  */}
             <div className={` h-9/10 flex w-full bg-black`}>
@@ -75,14 +78,17 @@ function LoggedInContainer({ children, currActiveScreen }) {
                             <IconText iconName={"material-symbols:search"} displayText="Search"
                                 active={currActiveScreen === "search"}
                                 targetLink={"/search"} />
-                            <IconText iconName={"lineicons:books-2"} displayText="Library"active={currActiveScreen == "library"}/>
-                            <IconText iconName={"material-symbols:library-music-sharp"} 
-                            active={currActiveScreen === "myMusic"}
-                            displayText="My Music" />
+                            <IconText iconName={"lineicons:books-2"} displayText="Library" active={currActiveScreen == "library"}
+                            targetLink={"/library"} />
+                            <IconText iconName={"material-symbols:library-music-sharp"}
+                                active={currActiveScreen === "myMusic"}
+                                displayText="My Music" />
                         </div>
                         <div className="pt-5">
-                            <IconText iconName={"icon-park-solid:add"} displayText="Crete Playlist" active={currActiveScreen == "playlist"}/>
-                            <IconText iconName={"mdi:cards-heart"} displayText="Liked Songs" active={currActiveScreen == "likedSong"}/>
+                            <IconText iconName={"icon-park-solid:add"} displayText="Crete Playlist" active={currActiveScreen == "playlist"} />
+                            <IconText iconName={"mdi:cards-heart"} displayText="Liked Songs" active={currActiveScreen == "likedSong"}
+                            onClick={()=>{setCreatePlayListModel(true)}}
+                            />
                         </div>
                     </div>
                     <div className="px-5">
